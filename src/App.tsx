@@ -1,7 +1,11 @@
 import { useState } from "react";
+import { IMG } from "./lib/data";
 import BootScreen from "./components/BootScreen";
 import Navbar from "./components/Navbar";
 import Hero, { Ticker } from "./components/Hero";
+import Particles from "./components/Particles";
+import StatsBar from "./components/Stats";
+import Cinematic from "./components/Cinematic";
 import Trailer from "./components/Trailer";
 import Features from "./components/Features";
 import Starters from "./components/Starters";
@@ -27,6 +31,8 @@ export default function App() {
         }}
       />
 
+      <Particles />
+
       {!booted && <BootScreen onDone={() => setBooted(true)} />}
 
       <div
@@ -38,10 +44,17 @@ export default function App() {
         <main>
           <Hero live={booted} />
           <Ticker />
+          <StatsBar />
           <Trailer />
           <Features />
           <Starters />
           <Region />
+          <Cinematic
+            img={IMG.eaShot2}
+            alt="Captura real del Early Access de Gamma Emerald"
+            kicker="PRIMER TERCIO DE HOENN"
+            title="¿LISTO PARA TU PRIMERA MEDALLA?"
+          />
           <Download />
           <Faq />
         </main>

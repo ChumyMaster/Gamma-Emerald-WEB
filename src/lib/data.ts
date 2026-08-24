@@ -157,24 +157,27 @@ export const FEATURES = [
 ];
 
 export type Starter = {
-  num: string;
+  id: "treecko" | "torchic" | "mudkip";
+  dex: string;
   name: string;
-  types: { label: string; color: string }[];
+  type: string;
+  color: string;
   desc: string;
   ability: string;
   stats: { label: string; value: number }[];
   img: string;
-  glow: string;
-  accent: string;
+  confetti: string[];
 };
 
 export const STARTERS: Starter[] = [
   {
-    num: "#252",
+    id: "treecko",
+    dex: "N.º 252",
     name: "TREECKO",
-    types: [{ label: "PLANTA", color: "#4ade80" }],
+    type: "PLANTA",
+    color: "#4ade80",
     desc: "Pokémon Geco Bosque. Las ventosas de sus patas le dejan trepar muros y techos. Mantiene la sangre fría incluso frente a rivales enormes.",
-    ability: "ESPESURA",
+    ability: "HAB. ESPESURA",
     stats: [
       { label: "PS", value: 45 },
       { label: "ATQ", value: 45 },
@@ -182,15 +185,16 @@ export const STARTERS: Starter[] = [
       { label: "VEL", value: 70 },
     ],
     img: SPR(252),
-    glow: "rgba(74, 222, 128, 0.3)",
-    accent: "#4ade80",
+    confetti: ["#4ade80", "#a7f3d0", "#ecfdf5", "#34d399"],
   },
   {
-    num: "#255",
+    id: "torchic",
+    dex: "N.º 255",
     name: "TORCHIC",
-    types: [{ label: "FUEGO", color: "#ff8a5c" }],
+    type: "FUEGO",
+    color: "#fbbf24",
     desc: "Pokémon Polluelo. Guarda una llama dentro de su vientre; si lo abrazas, notarás su calorcito. Pequeño, pero escupe brasas de 1.000 °C.",
-    ability: "MAR LLAMAS",
+    ability: "HAB. MAR LLAMAS",
     stats: [
       { label: "PS", value: 45 },
       { label: "ATQ", value: 60 },
@@ -198,15 +202,16 @@ export const STARTERS: Starter[] = [
       { label: "VEL", value: 45 },
     ],
     img: SPR(255),
-    glow: "rgba(255, 138, 92, 0.3)",
-    accent: "#ff8a5c",
+    confetti: ["#fbbf24", "#fb923c", "#fcd34d", "#ecfdf5"],
   },
   {
-    num: "#258",
+    id: "mudkip",
+    dex: "N.º 258",
     name: "MUDKIP",
-    types: [{ label: "AGUA", color: "#53d8ff" }],
+    type: "AGUA",
+    color: "#38bdf8",
     desc: "Pokémon Pez Lodo. La aleta de su cabeza percibe las corrientes de agua y aire. En tierra puede levantar rocas mucho más pesadas que él.",
-    ability: "TORRENTE",
+    ability: "HAB. TORRENTE",
     stats: [
       { label: "PS", value: 50 },
       { label: "ATQ", value: 70 },
@@ -214,8 +219,7 @@ export const STARTERS: Starter[] = [
       { label: "VEL", value: 40 },
     ],
     img: SPR(258),
-    glow: "rgba(83, 216, 255, 0.3)",
-    accent: "#53d8ff",
+    confetti: ["#38bdf8", "#7dd3fc", "#bae6fd", "#ecfdf5"],
   },
 ];
 
@@ -339,6 +343,32 @@ export const CONTROLS = [
   ["Correr", "Shift izq", "B mantenido"],
   ["Cambiar en menú", "Q / E", "Bumpers"],
   ["Registrar / Bici", "R", "Select"],
+];
+
+/* sprites pixel art oficiales (Showdown, gen 5 = los del juego) */
+export const SPRITES = {
+  treecko: {
+    front: "https://play.pokemonshowdown.com/sprites/gen5/treecko.png",
+    shiny: "https://play.pokemonshowdown.com/sprites/gen5-shiny/treecko.png",
+    back: "https://play.pokemonshowdown.com/sprites/gen5-back/treecko.png",
+  },
+  torchic: {
+    front: "https://play.pokemonshowdown.com/sprites/gen5/torchic.png",
+    shiny: "https://play.pokemonshowdown.com/sprites/gen5-shiny/torchic.png",
+    back: "https://play.pokemonshowdown.com/sprites/gen5-back/torchic.png",
+  },
+  mudkip: {
+    front: "https://play.pokemonshowdown.com/sprites/gen5/mudkip.png",
+    shiny: "https://play.pokemonshowdown.com/sprites/gen5-shiny/mudkip.png",
+    back: "https://play.pokemonshowdown.com/sprites/gen5-back/mudkip.png",
+  },
+};
+
+export const STATS = [
+  { value: 4.97, decimals: 2, suffix: " ★", label: "VALORACIÓN MEDIA EN ITCH.IO" },
+  { value: 116, suffix: "+", label: "VALORACIONES DE LA COMUNIDAD" },
+  { value: 3, suffix: "", label: "GIMNASIOS EN EL EARLY ACCESS" },
+  { value: 1.3, decimals: 1, suffix: " GB", label: "DE MUNDO HD-2D GRATIS" },
 ];
 
 export const FAQS = [
