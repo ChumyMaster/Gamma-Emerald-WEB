@@ -14,17 +14,17 @@ export default function Faq() {
       <div className="mx-auto grid max-w-6xl gap-12 px-4 sm:px-6 lg:grid-cols-[0.8fr_1.2fr]">
         <div className="lg:sticky lg:top-28 lg:self-start">
           <SectionHead
-            eyebrow="CENTRO POKÉMON · MOSTRADOR"
-            title="PREGUNTAS FRECUENTES"
-            desc="Todo lo que la comunidad pregunta antes de pulsar START: precio, plataformas, idioma y el estado legal del proyecto."
+            eyebrow="POKÉMON CENTER · FRONT DESK"
+            title="FREQUENTLY ASKED QUESTIONS"
+            desc="Everything the community asks before pressing START: price, platforms, languages and the legal status of the project."
           />
           <Reveal delay={260} dir="none">
             <div className="pixel-corners mt-8 border-2 border-pine-700 bg-pine-950 p-5">
               <p className="font-term text-xl leading-snug text-fog">
-                ¿TU DUDA NO ESTÁ AQUÍ? Los comentarios de{" "}
-                <span className="text-gamma-300">itch.io</span> y{" "}
-                <span className="text-ember-400">GameJolt</span> son el canal
-                directo con UndreamedPanic.
+                QUESTION NOT LISTED? The comment sections on{" "}
+                <span className="text-gamma-300">itch.io</span> and{" "}
+                <span className="text-ember-400">GameJolt</span> are the direct
+                line to UndreamedPanic — and the Discord is always open.
               </p>
             </div>
           </Reveal>
@@ -46,6 +46,7 @@ export default function Faq() {
                     className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
                     onClick={() => setOpen(isOpen ? -1 : i)}
                     aria-expanded={isOpen}
+                    data-cursor
                   >
                     <span className="flex items-baseline gap-3">
                       <span

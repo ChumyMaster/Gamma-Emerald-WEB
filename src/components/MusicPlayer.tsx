@@ -3,8 +3,8 @@ import { IconExt } from "./Icons";
 
 const TRACK = {
   id: "zf9rqmkXCFA",
-  title: "RUTA 101",
-  sub: "Pokémon Esmeralda · Tema original",
+  title: "ROUTE 101",
+  sub: "Pokémon Emerald · Original theme",
   url: "https://www.youtube.com/watch?v=zf9rqmkXCFA",
 };
 
@@ -35,7 +35,7 @@ export default function MusicPlayer() {
             <div className="flex items-center justify-between gap-2 px-1 pb-2">
               <div className="min-w-0">
                 <p className="font-display text-[10px] text-ink">
-                  🎵 RADIO HOENN
+                  🎵 HOENN RADIO
                 </p>
                 <p className="truncate font-term text-sm tracking-widest text-gamma-400">
                   {TRACK.title} — {TRACK.sub}
@@ -73,7 +73,7 @@ export default function MusicPlayer() {
 
             <div className="flex items-center justify-between px-1 pt-2">
               <p className="font-term text-xs text-dim">
-                Si no suena, pulsa ▶ en el vídeo
+                If silent, press ▶ on the video
               </p>
               <a
                 href={TRACK.url}
@@ -92,7 +92,7 @@ export default function MusicPlayer() {
       <button
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
-        aria-label={open ? "Cerrar la radio" : "Abrir la radio: tema de la Ruta 101"}
+        aria-label={open ? "Close the radio" : "Open the radio: Route 101 theme"}
         data-cursor
         className="group relative flex h-14 w-14 items-center justify-center rounded-full border-b-4 border-gamma-700 bg-gamma-500 text-pine-950 shadow-[0_16px_34px_-10px_rgba(16,185,129,0.6)] transition-all duration-300 hover:-translate-y-1 hover:bg-gamma-400 active:translate-y-0 active:border-b-2"
       >
@@ -129,7 +129,7 @@ export default function MusicPlayer() {
           open ? "translate-y-1 opacity-0" : "opacity-100"
         } group-hover:opacity-0`}
       >
-        ♪ MÚSICA: RUTA 101
+        ♪ MUSIC: ROUTE 101
       </span>
     </div>
   );

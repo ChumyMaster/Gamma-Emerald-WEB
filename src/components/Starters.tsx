@@ -1,42 +1,49 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import confetti from "canvas-confetti";
 import { Reveal, usePrefersReducedMotion } from "../lib/motion";
-import { STARTERS, SPRITES } from "../lib/data";
-import { IconBall } from "./Icons";
+import { STARTERS } from "../lib/data";
+import { IconChevron } from "./Icons";
 import SectionHead from "./SectionHead";
 import Tilt from "./Tilt";
 import MouseGlow from "./MouseGlow";
 
-const SPARKS = [
-  { top: "12%", left: "18%", delay: "0s" },
-  { top: "22%", right: "14%", delay: "0.6s" },
-  { bottom: "26%", left: "12%", delay: "1.1s" },
-];
+const TYPE_COLORS: Record<string, string> = {
+  GRASS: "rgba(74,222,128,0.3)",
+  FIRE: "rgba(255,138,92,0.3)",
+  WATER: "rgba(83,216,255,0.3)",
+};
 
 export default function Starters() {
   const reduced = usePrefersReducedMotion();
   const [shiny, setShiny] = useState(false);
-  const [picked, setPicked] = useState<string | null>(null);
-  const chosen = STARTERS.find((s) => s.id === picked);
+  const [picked, setPicked] = useState(-1);
+  const panelRef = useRef<HTMLDivElement>(null);
 
-  const choose = (id: string) => {
-    setPicked(id);
-    const mon = STARTERS.find((s) => s.id === id)!;
-    if (!reduced) {
+  const chosen = picked >= 0 ? STARTERS[picked] : null;
+
+  const choose = (i: number) => {
+    setPicked(i);
+    const s = STARTERS[i];
+    if (!reduced && typeof confetti === "function") {
       confetti({
-        particleCount: 110,
+        particleCount: 90,
         spread: 75,
-        origin: { y: 0.62 },
-        colors: mon.confetti,
+        origin: { y: 0.6 },
+        colors: s.confetti,
         disableForReducedMotion: true,
+        zIndex: 90,
       });
     }
-    window.setTimeout(() => {
-      document
-        .getElementById("respuesta-prof")
-        ?.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "nearest" });
-    }, 60);
   };
+
+  useEffect(() => {
+    if (picked >= 0 && panelRef.current) {
+      panelRef.current.scrollIntoView({
+        behavior: reduced ? "auto" : "smooth",
+        block: "nearest",
+      });
+    }
+  }, [picked, reduced]);
 
   return (
     <section
@@ -58,47 +65,53 @@ export default function Starters() {
       >
         <div className="flex flex-wrap items-end justify-between gap-6">
           <SectionHead
-            eyebrow="LABORATORIO DEL PROFESOR ABEDUL"
-            title="ELIGE A TU INICIAL"
-            desc="Los tres compañeros que te esperan en el maletín del profesor, con sus sprites pixel art tal y como aparecen en combate. Elige con sabiduría: te acompañará hasta la Liga."
+            eyebrow="PROF. BIRCH'S LAB"
+            title="CHOOSE YOUR PARTNER"
+            desc="The three partners waiting in the professor's case, with their pixel-art battle sprites exactly as they appear in-game. Choose wisely — it will walk beside you all the way to the League."
           />
           <Reveal delay={200} dir="right">
             <button
               onClick={() => setShiny((v) => !v)}
               aria-pressed={shiny}
-              className={`btn-pixel pixel-corners inline-flex items-center gap-3 border-b-4 px-5 py-3 font-term text-sm tracking-[0.25em] ${
-                shiny
-                  ? "border-ember-500 bg-ember-400 text-pine-950"
-                  : "border-pine-700 bg-pine-900 text-fog hover:text-ember-300"
-              }`}
+              data-cursor
+              className="pixel-corners group flex items-center gap-3 border-2 border-pine-600 bg-pine-900 px-5 py-3 transition-all duration-300 hover:-translate-y-0.5 hover:border-ember-400"
             >
-              <span className={shiny ? "sparkle-star inline-block" : "inline-block"}>
-                ✦
+              <span
+                className={`relative h-6 w-11 rounded-full border-2 transition-colors duration-300 ${
+                  shiny ? "border-ember-400 bg-ember-500/30" : "border-pine-600 bg-pine-950"
+                }`}
+              >
+                <span
+                  className={`absolute top-0.5 h-4 w-4 rounded-full transition-all duration-300 ${
+                    shiny ? "left-6 bg-ember-300" : "left-0.5 bg-pine-600"
+                  }`}
+                />
               </span>
-              {shiny ? "VARIOCOLOR SÍ" : "VARIOCOLOR NO"}
+              <span className="font-term text-sm tracking-[0.25em] text-fog group-hover:text-ember-300">
+                ✦ SHINY MODE
+              </span>
             </button>
           </Reveal>
         </div>
 
-        <div className="mt-14 grid gap-6 md:grid-cols-3">
+        {/* starter cards */}
+        <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {STARTERS.map((s, i) => {
-            const spr = SPRITES[s.id as keyof typeof SPRITES];
-            const isPicked = picked === s.id;
+            const sel = picked === i;
             return (
-              <Reveal key={s.id} delay={i * 140} className="h-full">
+              <Reveal key={s.name} delay={i * 130} className="h-full">
                 <Tilt className="h-full">
                   <article
-                    className={`lift group relative flex h-full flex-col overflow-hidden pixel-corners border-2 bg-pine-900 ${
-                      isPicked ? "border-gamma-500" : "border-pine-700"
+                    className={`lift group relative flex h-full flex-col overflow-hidden border-2 bg-pine-900 transition-colors duration-300 ${
+                      sel ? "border-gamma-400" : "border-pine-700 hover:border-pine-500"
                     }`}
                   >
-                    {/* cabecera */}
-                    <header className="flex items-center justify-between px-6 pt-5">
-                      <span className="font-term text-lg tracking-[0.2em] text-dim">
+                    <header className="flex items-center justify-between border-b-2 border-pine-700 px-5 py-3">
+                      <span className="font-term text-lg tracking-widest text-dim">
                         {s.dex}
                       </span>
                       <span
-                        className="pixel-corners-sm border px-3 py-1 font-term text-xs font-bold tracking-[0.18em]"
+                        className="pixel-corners-sm border px-3 py-1 font-term text-xs font-bold tracking-[0.2em]"
                         style={{
                           color: s.color,
                           borderColor: s.color,
@@ -109,44 +122,68 @@ export default function Starters() {
                       </span>
                     </header>
 
-                    {/* vitrina del sprite */}
-                    <div className="relative mx-4 mt-3">
+                    {/* pixel-art sprite showcase */}
+                    <button
+                      onClick={() => choose(i)}
+                      aria-label={`Pick ${s.name} as your partner`}
+                      data-cursor
+                      className="relative cursor-pointer border-0 bg-transparent p-0 text-left"
+                    >
                       <div
-                        className="relative flex h-52 items-center justify-center overflow-hidden pixel-corners-sm"
+                        className="relative flex aspect-[4/3] items-end justify-center overflow-hidden"
                         style={{
-                          background: `radial-gradient(circle at 50% 42%, ${s.color}38 0%, rgba(6,35,26,0) 70%)`,
+                          background: `radial-gradient(52% 68% at 50% 44%, ${
+                            TYPE_COLORS[s.type]
+                          } 0%, rgba(4,22,15,0) 72%)`,
                         }}
                       >
-                        <img
-                          src={shiny ? spr.shiny : spr.front}
-                          alt={`Sprite pixel art de ${s.name}${shiny ? " variocolor" : ""}`}
-                          className="pixelated floaty relative z-10 w-44 transition-transform duration-300 group-hover:scale-110"
-                        />
-                        {shiny &&
-                          SPARKS.map((sp, k) => (
-                            <span
-                              key={k}
-                              className="sparkle-star absolute z-20 text-lg text-ember-300"
-                              style={{ ...sp, animationDelay: sp.delay }}
-                              aria-hidden
-                            >
-                              ✦
-                            </span>
-                          ))}
-                        <span className="absolute bottom-2 right-3 font-term text-xs tracking-[0.2em] text-dim">
-                          SPRITE DE COMBATE
+                        {/* twinkles */}
+                        <span
+                          className="absolute top-5 left-[16%] text-lg"
+                          style={{ color: s.color }}
+                          aria-hidden
+                        >
+                          ✦
                         </span>
-                      </div>
-                    </div>
+                        <span
+                          className="sparkle absolute top-12 right-[18%] text-xl"
+                          style={{ color: s.color, animationDelay: "0.7s" }}
+                          aria-hidden
+                        >
+                          ✦
+                        </span>
+                        <span
+                          className="sparkle absolute bottom-9 left-[24%] text-sm"
+                          style={{ color: s.color, animationDelay: "1.3s" }}
+                          aria-hidden
+                        >
+                          ✧
+                        </span>
 
-                    <div className="flex flex-1 flex-col px-6 py-5">
-                      <h3
-                        className="font-display text-2xl tracking-wide"
-                        style={{ color: s.color }}
-                      >
+                        <img
+                          key={`${s.id}-${shiny ? "s" : "n"}`}
+                          src={shiny ? s.sprites.shiny : s.sprites.front}
+                          alt={`${s.name} pixel-art battle sprite`}
+                          className="sprite-hop img-pixel relative z-10 -mb-3 h-40 w-auto transition-transform duration-500 group-hover:scale-110 sm:h-44"
+                          draggable={false}
+                        />
+                        <div
+                          className="absolute bottom-4 h-5 w-40 rounded-[100%] bg-pine-950/70 blur-[2px]"
+                          aria-hidden
+                        />
+                        {shiny && (
+                          <span className="absolute top-3 right-3 border border-ember-400 bg-pine-950/90 px-2 py-0.5 font-term text-xs tracking-widest text-ember-300">
+                            ✦ SHINY
+                          </span>
+                        )}
+                      </div>
+                    </button>
+
+                    <div className="flex flex-1 flex-col px-5 py-4">
+                      <h3 className="font-display text-lg tracking-wide text-ink">
                         {s.name}
                       </h3>
-                      <p className="mt-2.5 font-body text-sm leading-relaxed text-fog">
+                      <p className="mt-2 font-body text-sm leading-relaxed text-fog">
                         {s.desc}
                       </p>
 
@@ -154,43 +191,45 @@ export default function Starters() {
                         {s.stats.map((st, j) => (
                           <div
                             key={st.label}
-                            className="grid grid-cols-[46px_1fr_40px] items-center gap-2"
+                            className="grid grid-cols-[38px_1fr_34px] items-center gap-2"
                           >
                             <span className="font-term text-xs tracking-widest text-dim">
                               {st.label}
                             </span>
-                            <div className="bar-track h-2.5">
+                            <div className="bar-track h-2">
                               <div
                                 className="bar-fill h-full"
                                 style={{
-                                  width: `${Math.min(100, st.value)}%`,
-                                  background:
-                                    st.value >= 70 ? s.color : "#10b981",
-                                  transitionDelay: `${j * 90}ms`,
+                                  width: `${Math.min(100, Math.round(st.value / 0.8))}%`,
+                                  background: s.color,
+                                  transitionDelay: `${200 + j * 100}ms`,
                                 }}
                               />
                             </div>
-                            <span className="text-right font-term text-base text-ink">
+                            <span
+                              className="text-right font-term text-sm"
+                              style={{ color: s.color }}
+                            >
                               {st.value}
                             </span>
                           </div>
                         ))}
                       </div>
 
-                      <footer className="mt-auto flex items-center justify-between gap-3 pt-6">
-                        <span className="font-term text-xs tracking-[0.18em] text-dim">
-                          {s.ability}
+                      <footer className="mt-auto flex items-center justify-between pt-5">
+                        <span className="pixel-corners-sm border border-pine-600 bg-pine-950 px-2.5 py-1 font-term text-sm text-aqua-400">
+                          AB. {s.ability}
                         </span>
                         <button
-                          onClick={() => choose(s.id)}
-                          className={`btn-pixel pixel-corners-sm inline-flex items-center gap-2 border-b-4 px-4 py-2.5 text-xs ${
-                            isPicked
+                          onClick={() => choose(i)}
+                          data-cursor
+                          className={`btn-pixel pixel-corners-sm border-b-4 px-4 py-2 text-[9px] ${
+                            sel
                               ? "border-gamma-700 bg-gamma-500 text-pine-950"
-                              : "border-pine-700 bg-pine-800 text-ink hover:bg-gamma-600 hover:text-pine-950"
+                              : "border-pine-700 bg-pine-950 text-fog hover:text-gamma-300"
                           }`}
                         >
-                          <IconBall className="h-3.5 w-3.5" />
-                          {isPicked ? "¡ELEGIDO!" : "ELEGIR"}
+                          {sel ? "✓ PICKED!" : "I CHOOSE YOU!"}
                         </button>
                       </footer>
                     </div>
@@ -201,79 +240,73 @@ export default function Starters() {
           })}
         </div>
 
-        {/* respuesta del profesor */}
+        {/* Prof. Birch's dialogue */}
         {chosen && (
-          <div
-            id="respuesta-prof"
-            className="pop-in pixel-corners mt-10 border-2 border-gamma-600 bg-pine-900 p-6 sm:p-8"
-          >
-            <div className="grid items-center gap-8 lg:grid-cols-[1fr_auto]">
-              <div>
-                <p className="font-term text-sm tracking-[0.3em] text-gamma-400">
-                  ▚ PROFESOR ABEDUL
-                </p>
-                <p className="mt-3 font-display text-xl leading-relaxed text-ink sm:text-2xl">
-                  «¡Excelente elección!{" "}
-                  <span style={{ color: chosen.color }}>{chosen.name}</span> y tú
-                  haréis un gran equipo. Tu aventura por Hoenn comienza ahora.»
-                </p>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  <span className="pixel-corners-sm border border-pine-600 bg-pine-950 px-3 py-1.5 font-term text-xs tracking-[0.2em] text-fog">
-                    REGISTRADO EN LA POKÉDEX
-                  </span>
-                  <span className="pixel-corners-sm border border-pine-600 bg-pine-950 px-3 py-1.5 font-term text-xs tracking-[0.2em] text-fog">
-                    OBJETO: POCIÓN ×5
-                  </span>
-                  <span className="pixel-corners-sm border border-ember-400/60 bg-pine-950 px-3 py-1.5 font-term text-xs tracking-[0.2em] text-ember-300">
-                    MEDALLAS: 0 / 8
-                  </span>
-                </div>
-                <button
-                  onClick={() => setPicked(null)}
-                  className="link-underline mt-6 font-term text-sm tracking-[0.25em] text-gamma-400 hover:text-gamma-300"
-                >
-                  ↺ ELEGIR OTRO INICIAL
-                </button>
-              </div>
-
-              <div className="flex items-center justify-center gap-6">
-                <div className="text-center">
+          <div ref={panelRef} className="mt-12">
+            <Reveal dir="pop">
+              <div className="pixel-corners relative mx-auto max-w-3xl border-2 border-pine-600 bg-pine-900 p-6 sm:p-8">
+                <span className="pixel-corners-sm absolute -top-3.5 left-6 border-2 border-ember-400 bg-pine-950 px-3 py-1 font-term text-sm tracking-[0.25em] text-ember-400">
+                  PROF. BIRCH
+                </span>
+                <div className="flex flex-col items-center gap-6 sm:flex-row">
                   <div
-                    className="pixel-corners-sm flex h-40 w-40 items-center justify-center border-2"
+                    className="relative shrink-0 overflow-hidden rounded-2xl border-2 border-pine-600 p-4"
                     style={{
-                      borderColor: chosen.color,
-                      background: `radial-gradient(circle at 50% 45%, ${chosen.color}35 0%, rgba(6,35,26,0) 72%)`,
+                      background: `radial-gradient(circle at 50% 40%, ${
+                        TYPE_COLORS[chosen.type]
+                      } 0%, rgba(4,22,15,0) 75%)`,
                     }}
                   >
                     <img
-                      src={
-                        shiny
-                          ? SPRITES[chosen.id as keyof typeof SPRITES].shiny
-                          : SPRITES[chosen.id as keyof typeof SPRITES].front
-                      }
-                      alt={`Sprite de ${chosen.name}`}
-                      className="pixelated bob-slow w-32"
+                      src={shiny ? chosen.sprites.shiny : chosen.sprites.front}
+                      alt={`${chosen.name} in your team`}
+                      className="img-pixel bob-slow h-28 w-auto"
                     />
                   </div>
-                  <p className="mt-2 font-term text-xs tracking-[0.25em] text-dim">
-                    EN EL EQUIPO
-                  </p>
-                </div>
-                <div className="text-center">
-                  <div className="pixel-corners-sm zoom-img h-40 w-40 border-2 border-pine-700 bg-pine-950 p-2">
-                    <img
-                      src={chosen.img}
-                      alt={`Arte oficial de ${chosen.name}`}
-                      className="h-full w-full object-contain"
-                    />
+                  <div>
+                    <p className="font-body text-base leading-relaxed text-ink sm:text-lg">
+                      Excellent choice!{" "}
+                      <strong style={{ color: chosen.color }}>{chosen.name}</strong>{" "}
+                      and you make a great team! Take good care of it — your
+                      adventure through Hoenn starts now.
+                    </p>
+                    <div className="mt-4 flex flex-wrap items-center gap-2">
+                      <span className="pixel-corners-sm border border-pine-600 bg-pine-950 px-3 py-1 font-term text-sm text-gamma-300">
+                        YOUR TEAM · 1/6
+                      </span>
+                      <span className="pixel-corners-sm border border-pine-600 bg-pine-950 px-3 py-1 font-term text-sm text-fog">
+                        LV. 5 · {chosen.ability}
+                      </span>
+                      <a
+                        href="#descargar"
+                        className="btn-pixel pixel-corners-sm inline-flex items-center gap-2 border-b-4 border-gamma-700 bg-gamma-500 px-4 py-2 text-[9px] text-pine-950 hover:bg-gamma-400"
+                      >
+                        DOWNLOAD & START <IconChevron className="h-3 w-3" />
+                      </a>
+                    </div>
                   </div>
-                  <p className="mt-2 font-term text-xs tracking-[0.25em] text-dim">
-                    ARTE OFICIAL
-                  </p>
+                  <div className="hidden shrink-0 lg:block">
+                    <div className="pixel-corners-sm zoom-img h-36 w-36 overflow-hidden rounded-xl border-2 border-pine-700 bg-pine-950">
+                      <img
+                        src={chosen.art}
+                        alt={`${chosen.name} official artwork`}
+                        className="h-full w-full object-contain"
+                      />
+                    </div>
+                    <p className="mt-2 text-center font-term text-xs tracking-[0.25em] text-dim">
+                      OFFICIAL ARTWORK
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
+            </Reveal>
           </div>
+        )}
+
+        {!chosen && (
+          <p className="mt-10 text-center font-term text-base tracking-[0.2em] text-dim">
+            PSST — TOGGLE SHINY MODE FOR SOMETHING SPECIAL ✦
+          </p>
         )}
       </MouseGlow>
     </section>

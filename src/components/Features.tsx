@@ -6,10 +6,10 @@ import MouseGlow from "./MouseGlow";
 import Tilt from "./Tilt";
 
 const PHASES = [
-  { name: "MAÑANA", color: "#ffc857", icon: "☀" },
-  { name: "TARDE", color: "#ff8a5c", icon: "◐" },
-  { name: "NOCHE", color: "#8dffb0", icon: "☾" },
-  { name: "MADRUGADA", color: "#b18cff", icon: "✦" },
+  { name: "MORNING", color: "#fbbf24", icon: "☀" },
+  { name: "DUSK", color: "#ff8a5c", icon: "◐" },
+  { name: "NIGHT", color: "#6ee7b7", icon: "☾" },
+  { name: "DAWN", color: "#a78bfa", icon: "✦" },
 ];
 
 function DayClock() {
@@ -51,7 +51,7 @@ function DayClock() {
           {p.name}
         </p>
         <p className="font-term text-sm text-dim">
-          Encuentros ajustados por hora
+          Encounters shift with the time
         </p>
       </div>
     </div>
@@ -88,7 +88,7 @@ export default function Features() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-pine-900 via-pine-900/20 to-transparent" />
                 <span className="absolute top-3 left-3 border border-gamma-500 bg-pine-950/90 px-2.5 py-1 font-term text-base tracking-widest text-gamma-400">
-                  CAPTURA DEL JUEGO
+                  IN-GAME CAPTURE
                 </span>
               </div>
               <div className="flex flex-1 flex-col p-6">
@@ -114,7 +114,7 @@ export default function Features() {
                 {/* herramientas del autor */}
                 <div className="mt-auto pt-6">
                   <p className="mb-2 font-term text-base tracking-[0.3em] text-dim">
-                    HERRAMIENTAS DEL AUTOR
+                    AUTHOR'S TOOLKIT
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {TOOLS.map((t) => (
@@ -213,11 +213,10 @@ export default function Features() {
             </div>
             <figcaption className="flex flex-wrap items-center justify-between gap-2 px-5 py-3">
               <span className="font-term text-lg tracking-widest text-fog">
-                ▚ ARTE OFICIAL DE LA PÁGINA DEL JUEGO — «¡BIENVENIDO A LA
-                ISLA!»
+                ▚ OFFICIAL ART FROM THE GAME PAGE — "WELCOME TO THE ISLAND!"
               </span>
               <span className="pixel-corners-sm border border-pine-600 bg-pine-950 px-3 py-1 font-term text-base text-ember-400">
-                100% HECHO A MANO · SIN IA GENERATIVA
+                100% HANDMADE · NO GENERATIVE AI
               </span>
             </figcaption>
           </figure>

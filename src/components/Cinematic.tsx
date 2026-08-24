@@ -77,7 +77,7 @@ export default function Cinematic({
             href="#descargar"
             className="btn-pixel pixel-corners mt-9 inline-flex items-center gap-3 border-b-8 border-gamma-700 bg-gamma-500 px-8 py-4 text-sm text-pine-950 hover:bg-gamma-400"
           >
-            <IconDownload className="h-4 w-4" /> DESCARGAR GAMMA EMERALD
+            <IconDownload className="h-4 w-4" /> DOWNLOAD GAMMA EMERALD
           </a>
         </Reveal>
       </div>

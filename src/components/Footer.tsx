@@ -1,31 +1,43 @@
 import { LINKS } from "../lib/data";
-import { IconBall, IconExt, IconLeaf, IconPlay } from "./Icons";
+import {
+  IconBall,
+  IconExt,
+  IconLeaf,
+  IconPlay,
+  IconDiscord,
+  IconItch,
+  IconGamepad,
+} from "./Icons";
 
-const COLS = [
+const COLS: {
+  title: string;
+  links: { label: string; href: string; icon?: (p: { className?: string }) => React.ReactElement }[];
+}[] = [
   {
-    title: "JUEGO",
+    title: "THE GAME",
     links: [
-      { label: "Early Access · itch.io", href: LINKS.itch },
-      { label: "Página en GameJolt", href: LINKS.gamejolt },
-      { label: "Demo clásica (2025)", href: LINKS.itchDemo },
-      { label: "Discord oficial", href: LINKS.discord },
+      { label: "Early Access · itch.io", href: LINKS.itch, icon: IconItch },
+      { label: "GameJolt page", href: LINKS.gamejolt, icon: IconGamepad },
+      { label: "Classic demo (2025)", href: LINKS.itchDemo, icon: IconItch },
+      { label: "Official Discord", href: LINKS.discord, icon: IconDiscord },
     ],
   },
   {
-    title: "VÍDEOS",
+    title: "VIDEOS",
     links: [
-      { label: "Tráiler oficial", href: LINKS.trailer1 },
-      { label: "Gameplay / avance", href: LINKS.trailer2 },
+      { label: "Official trailer", href: LINKS.trailer1 },
+      { label: "Gameplay showcase", href: LINKS.trailer2 },
+      { label: "Devlog — 15 days", href: LINKS.trailer3 },
     ],
   },
   {
     title: "FAN PAGE",
     links: [
-      { label: "Tráiler", href: "#trailer" },
-      { label: "Novedades", href: "#novedades" },
-      { label: "Pokédex Gamma", href: "#pokedex" },
-      { label: "Región", href: "#region" },
-      { label: "Descargar", href: "#descargar" },
+      { label: "Trailers", href: "#trailer" },
+      { label: "Features", href: "#novedades" },
+      { label: "Starters", href: "#iniciales" },
+      { label: "Region", href: "#region" },
+      { label: "Download", href: "#descargar" },
     ],
   },
 ];
@@ -33,7 +45,7 @@ const COLS = [
 export default function Footer() {
   return (
     <footer className="relative border-t-2 border-pine-700 bg-pine-950">
-      {/* franja decorativa tipo hierba alta */}
+      {/* tall-grass decorative strip */}
       <div className="flex h-3 overflow-hidden" aria-hidden>
         {Array.from({ length: 40 }).map((_, i) => (
           <span
@@ -54,17 +66,18 @@ export default function Footer() {
             <span className="font-display text-[10px] leading-tight text-ink">
               GAMMA<span className="text-gamma-400">·</span>EMERALD
               <span className="mt-0.5 block font-term text-base font-normal tracking-[0.25em] text-dim">
-                FAN PAGE NO OFICIAL
+                UNOFFICIAL FAN PAGE
               </span>
             </span>
           </a>
           <p className="mt-5 max-w-xs font-body text-sm leading-relaxed text-fog">
-            Web tributo creada por fans para celebrar el remake HD-2D de
-            UndreamedPanic. Sin ánimo de lucro, con mucho cariño y una pizca de
-            radiación gamma.
+            A tribute site built by fans to celebrate UndreamedPanic's HD-2D
+            remake. Non-profit, full of love and sprinkled with a little gamma
+            radiation.
           </p>
           <p className="mt-5 flex items-center gap-2 font-term text-lg text-dim">
-            <IconLeaf className="h-4 w-4 text-gamma-500" /> HECHO CON BAYAS ARANJA
+            <IconLeaf className="h-4 w-4 text-gamma-500" /> MADE WITH SITRUS
+            BERRIES
           </p>
         </div>
 
@@ -82,10 +95,11 @@ export default function Footer() {
                     rel={l.href.startsWith("http") ? "noreferrer" : undefined}
                     className="link-underline group inline-flex items-center gap-2 font-body text-sm text-fog hover:text-gamma-300"
                   >
-                    {l.href.startsWith("http") && (
+                    {l.icon ? (
+                      <l.icon className="h-3.5 w-3.5 text-dim transition-colors group-hover:text-gamma-400" />
+                    ) : l.href.startsWith("http") ? (
                       <IconExt className="h-3 w-3 text-dim transition-colors group-hover:text-gamma-400" />
-                    )}
-                    {l.href.startsWith("#") && (
+                    ) : (
                       <IconPlay className="h-2.5 w-2.5 text-dim transition-colors group-hover:text-gamma-400" />
                     )}
                     {l.label}
@@ -100,9 +114,9 @@ export default function Footer() {
       <div className="border-t-2 border-pine-800">
         <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-6 sm:px-6 lg:flex-row lg:items-center lg:justify-between">
           <p className="font-term text-base leading-snug text-dim">
-            © 2026 COMUNIDAD GAMMA · SITIO DE FANS SIN AFILIACIÓN CON NINTENDO,
-            GAME FREAK NI THE POKÉMON COMPANY. POKÉMON ES MARCA DE SUS
-            RESPECTIVOS PROPIETARIOS.
+            © 2026 GAMMA COMMUNITY · FAN SITE WITH NO AFFILIATION TO NINTENDO,
+            GAME FREAK, CREATURES INC. OR THE POKÉMON COMPANY. POKÉMON IS A
+            TRADEMARK OF ITS RESPECTIVE OWNERS.
           </p>
           <p className="shrink-0 font-display text-[8px] text-pine-600">
             SAVE COMPLETE ▮ NO CONTINUES NEEDED

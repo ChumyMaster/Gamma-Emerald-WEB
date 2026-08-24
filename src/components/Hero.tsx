@@ -6,14 +6,12 @@ import { IconBolt, IconPlay, IconSpark, IconDownload } from "./Icons";
 export default function Hero({ live }: { live: boolean }) {
   const reduced = usePrefersReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
-  const bgRef = useRef<HTMLDivElement>(null);
-  const widgetRef = useRef<HTMLDivElement>(null);
   const [off, setOff] = useState(0);
 
   const t1 = useScramble("GAMMA", live, 30);
   const t2 = useScramble("EMERALD", live, 26);
 
-  /* parallax de scroll con rAF */
+  /* scroll parallax with rAF */
   useEffect(() => {
     if (reduced) return;
     let raf = 0;
@@ -29,7 +27,7 @@ export default function Hero({ live }: { live: boolean }) {
     };
   }, [reduced]);
 
-  /* foco de luz que sigue al cursor */
+  /* spotlight that follows the cursor */
   const onMove = (e: React.MouseEvent) => {
     if (reduced || !sectionRef.current) return;
     const r = sectionRef.current.getBoundingClientRect();
@@ -50,9 +48,8 @@ export default function Hero({ live }: { live: boolean }) {
       onMouseMove={onMove}
       className="relative flex min-h-screen flex-col overflow-hidden pt-24 pb-16 sm:pt-28"
     >
-      {/* fondo: GIF de gameplay real con parallax */}
+      {/* background: real gameplay GIF with parallax */}
       <div
-        ref={bgRef}
         className="absolute inset-0"
         style={{ transform: reduced ? undefined : `translateY(${off * 0.32}px)` }}
       >
@@ -66,10 +63,10 @@ export default function Hero({ live }: { live: boolean }) {
         <div className="absolute inset-0 bg-gradient-to-t from-pine-950 via-transparent to-pine-950/70" />
       </div>
 
-      {/* foco del cursor */}
+      {/* cursor spotlight */}
       <div className="spotlight pointer-events-none absolute inset-0 z-[3] mix-blend-screen" aria-hidden />
 
-      {/* rayos de luz */}
+      {/* light rays */}
       <div className="pointer-events-none absolute inset-0 z-[2]" aria-hidden>
         <div className="god-ray ray absolute -top-20 right-[12%] h-[140%] w-36" />
         <div
@@ -82,14 +79,14 @@ export default function Hero({ live }: { live: boolean }) {
         className="relative z-10 mx-auto grid w-full max-w-6xl flex-1 items-center gap-10 px-4 sm:px-6 lg:grid-cols-[1.12fr_0.88fr] lg:gap-14"
         style={{ transform: reduced ? undefined : `translateY(${off * 0.08}px)` }}
       >
-        {/* columna izquierda */}
+        {/* left column */}
         <div>
           <div className="flex flex-wrap items-center gap-2.5">
             <span className="tag-tilt pixel-corners-sm inline-flex items-center gap-2 border-2 border-ember-400 bg-pine-900/90 px-4 py-1.5 font-term text-sm font-bold tracking-[0.22em] text-ember-300">
               <IconSpark className="h-4 w-4" /> EARLY ACCESS · v1.13.1
             </span>
             <span className="pixel-corners-sm inline-flex items-center gap-2 border border-pine-600 bg-pine-900/90 px-4 py-1.5 font-term text-sm tracking-[0.22em] text-fog">
-              FANGAME · HD-2D · UNREAL ENGINE 5
+              FAN GAME · HD-2D · UNREAL ENGINE 5
             </span>
           </div>
 
@@ -106,11 +103,11 @@ export default function Hero({ live }: { live: boolean }) {
           </h1>
 
           <p className="mt-7 max-w-xl text-lg leading-relaxed text-fog sm:text-xl">
-            Hoenn reconstruido <strong className="text-gamma-300">desde cero</strong> en
-            Unreal Engine 5: ciclo día/noche, bayas, crianza, P2P y un mundo
-            HD-2D dibujado píxel a píxel por{" "}
-            <strong className="text-ember-300">UndreamedPanic</strong>. Gratis,
-            para siempre.
+            Hoenn rebuilt <strong className="text-gamma-300">from the ground up</strong>{" "}
+            in Unreal Engine 5: day/night cycle, berries, egg breeding, P2P
+            trading and an HD-2D world drawn tile by tile by{" "}
+            <strong className="text-ember-300">UndreamedPanic</strong>. Free,
+            forever.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-4">
@@ -118,24 +115,23 @@ export default function Hero({ live }: { live: boolean }) {
               href="#descargar"
               className="btn-pixel pixel-corners shine inline-flex items-center gap-3 border-b-8 border-gamma-700 bg-gamma-500 px-8 py-4 text-sm text-pine-950 hover:bg-gamma-400"
             >
-              <IconDownload className="h-4 w-4" /> DESCARGAR AHORA
+              <IconDownload className="h-4 w-4" /> DOWNLOAD NOW
             </a>
             <a
               href="#trailer"
               className="btn-pixel pixel-corners shine inline-flex items-center gap-3 border-2 border-pine-600 bg-pine-900/90 px-8 py-4 text-sm text-gamma-300 hover:border-gamma-500"
             >
-              <IconPlay className="h-4 w-4" /> VER TRÁILER
+              <IconPlay className="h-4 w-4" /> WATCH TRAILER
             </a>
           </div>
 
           <p className="blink mt-9 font-term text-base tracking-[0.3em] text-gamma-400">
-            ▶ PRESIONA START PARA COMENZAR TU AVENTURA
+            ▶ PRESS START TO BEGIN YOUR ADVENTURE
           </p>
         </div>
 
-        {/* columna derecha: widget de combate */}
+        {/* right column: battle widget */}
         <div
-          ref={widgetRef}
           className="relative mx-auto w-full max-w-md"
           style={{ transform: reduced ? undefined : `translateY(${off * -0.05}px)` }}
         >
@@ -143,7 +139,7 @@ export default function Hero({ live }: { live: boolean }) {
           <div className="pixel-corners shine border-2 border-pine-600 bg-pine-900/95 p-3 shadow-[0_30px_60px_-20px_rgba(4,22,15,0.9)]">
             <div className="flex items-center justify-between border-b-2 border-pine-700 px-2 pb-2">
               <span className="font-display text-[9px] text-fog">
-                COMBATE · RUTA 101
+                BATTLE · ROUTE 101
               </span>
               <span className="flex gap-1.5" aria-hidden>
                 <i className="h-2 w-2 rounded-full bg-coral-400" />
@@ -155,35 +151,35 @@ export default function Hero({ live }: { live: boolean }) {
             <div className="pixel-corners-sm relative mt-2 overflow-hidden">
               <img
                 src={IMG.eaShot1}
-                alt="Combate HD-2D real del Early Access de Gamma Emerald"
+                alt="Real HD-2D battle from the Gamma Emerald Early Access"
                 className="aspect-[16/9] w-full object-cover"
               />
               <div className="pixel-corners-sm absolute top-2 left-2 w-44 border-2 border-pine-600 bg-pine-950/90 p-2">
                 <div className="flex items-baseline justify-between">
                   <span className="font-display text-[8px] text-ink">POOCHYENA</span>
-                  <span className="font-term text-sm text-ember-400">Nv2</span>
+                  <span className="font-term text-sm text-ember-400">Lv2</span>
                 </div>
                 <div className="bar-track mt-1.5 h-2.5">
                   <div className="hp-live h-full" style={{ width: "92%" }} />
                 </div>
               </div>
               <div className="toast-pop pixel-corners-sm absolute bottom-2 right-2 border-2 border-ember-400 bg-pine-950/95 px-3 py-1.5 font-term text-base text-ember-300">
-                ¡Es súper eficaz!
+                It's super effective!
               </div>
             </div>
 
             <div className="mt-2 grid grid-cols-[1fr_auto] gap-2">
               <div className="pixel-corners-sm border-2 border-pine-700 bg-pine-950 p-2.5">
                 <p className="font-term text-lg leading-tight text-ink">
-                  ¿Qué hará <span className="text-gamma-400">MUDKIP</span>?
+                  What will <span className="text-gamma-400">MUDKIP</span> do?
                 </p>
                 <div className="bar-track mt-2 h-2">
                   <div className="xp-live h-full bg-aqua-400" style={{ width: "8%" }} />
                 </div>
-                <p className="mt-1 font-term text-xs text-dim">EXP · Nv5 → Nv6</p>
+                <p className="mt-1 font-term text-xs text-dim">EXP · Lv5 → Lv6</p>
               </div>
               <div className="grid grid-cols-2 gap-1.5">
-                {["LUCHAR", "MOCHILA", "POKÉMON", "HUIR"].map((b, i) => (
+                {["FIGHT", "BAG", "POKÉMON", "RUN"].map((b, i) => (
                   <span
                     key={b}
                     className={`pixel-corners-sm flex items-center justify-center border-2 px-3 font-term text-xs font-bold tracking-wider ${
@@ -200,19 +196,19 @@ export default function Hero({ live }: { live: boolean }) {
           </div>
 
           <div className="pixel-corners-sm floaty absolute -top-4 -right-3 border-2 border-ember-400 bg-pine-950 px-3 py-1.5 font-term text-base text-ember-400 shadow-[0_14px_30px_-10px_rgba(251,191,36,0.45)]">
-            <IconBolt className="mr-1 inline h-3.5 w-3.5" /> ENERGÍA GAMMA +42%
+            <IconBolt className="mr-1 inline h-3.5 w-3.5" /> GAMMA ENERGY +42%
           </div>
         </div>
       </div>
 
-      {/* indicador de scroll */}
+      {/* scroll cue */}
       <a
         href="#trailer"
         className="group absolute bottom-5 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-1.5"
-        aria-label="Bajar al tráiler"
+        aria-label="Scroll down to the trailers"
       >
         <span className="font-term text-xs tracking-[0.35em] text-fog transition-colors group-hover:text-gamma-400">
-          EXPLORA HOENN
+          EXPLORE HOENN
         </span>
         <svg
           viewBox="0 0 24 24"
@@ -227,7 +223,7 @@ export default function Hero({ live }: { live: boolean }) {
   );
 }
 
-/* cinta transportadora de ubicaciones */
+/* locations marquee */
 export function Ticker() {
   const items = [...TICKER, ...TICKER];
   return (

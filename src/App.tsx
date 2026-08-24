@@ -53,9 +53,9 @@ export default function App() {
           <Region />
           <Cinematic
             img={IMG.eaShot2}
-            alt="Captura real del Early Access de Gamma Emerald"
-            kicker="PRIMER TERCIO DE HOENN"
-            title="¿LISTO PARA TU PRIMERA MEDALLA?"
+            alt="Real capture from the Gamma Emerald Early Access"
+            kicker="FIRST THIRD OF HOENN"
+            title="READY FOR YOUR FIRST BADGE?"
           />
           <Download />
           <Faq />
