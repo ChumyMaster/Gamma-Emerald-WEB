@@ -8,12 +8,7 @@ const PARTICLES = Array.from({ length: 16 }, (_, i) => ({
   size: 3 + (i % 3) * 2,
   delay: `${(i % 8) * 0.55}s`,
   dur: `${4 + (i % 5)}s`,
-  color:
-    i % 4 === 0
-      ? "#ffc857"
-      : i % 4 === 2
-        ? "#53d8ff"
-        : "#5dff8f",
+  color: i % 4 === 0 ? "#ffc857" : i % 4 === 2 ? "#53d8ff" : "#5dff8f",
   op: 0.25 + (i % 5) * 0.12,
 }));
 
@@ -26,15 +21,15 @@ export default function Hero({ live }: { live: boolean }) {
       id="inicio"
       className="relative flex min-h-screen flex-col overflow-hidden pt-24 pb-10 sm:pt-28"
     >
-      {/* fondo: key art con respiración Ken Burns */}
+      {/* fondo: GIF de gameplay REAL del Early Access */}
       <div className="absolute inset-0">
         <img
-          src={IMG.hero}
+          src={IMG.gameplayGif}
           alt=""
           aria-hidden
-          className="kenburns h-full w-full object-cover opacity-70"
+          className="kenburns h-full w-full object-cover opacity-60"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-pine-950 via-pine-950/78 to-pine-950/30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-pine-950 via-pine-950/80 to-pine-950/30" />
         <div className="absolute inset-0 bg-gradient-to-t from-pine-950 via-transparent to-pine-950/70" />
       </div>
 
@@ -64,10 +59,10 @@ export default function Hero({ live }: { live: boolean }) {
         <div>
           <div className="flex flex-wrap items-center gap-2 font-term text-lg tracking-widest">
             <span className="pixel-corners-sm inline-flex items-center gap-1.5 border border-ember-400/60 bg-pine-900/80 px-3 py-1 text-ember-400">
-              <IconSpark className="h-3.5 w-3.5" /> EARLY ACCESS · v0.9
+              <IconSpark className="h-3.5 w-3.5" /> EARLY ACCESS · v1.13.1
             </span>
             <span className="pixel-corners-sm inline-flex items-center gap-1.5 border border-pine-600 bg-pine-900/80 px-3 py-1 text-fog">
-              FANGAME · HD-2D · UNREAL ENGINE
+              FANGAME · HD-2D · UNREAL ENGINE 5
             </span>
           </div>
 
@@ -84,18 +79,22 @@ export default function Hero({ live }: { live: boolean }) {
           </h1>
 
           <p className="mt-6 max-w-xl font-term text-2xl leading-snug text-fog sm:text-[1.55rem]">
-            El remake <span className="text-gamma-300">HD-2D</span> que reimagina
-            la región clásica de Esmeralda en Unreal Engine — ciclo día/noche,
-            bayas, crianza y una tormenta gamma que lo cambia todo. Por{" "}
-            <span className="text-ember-400">UndreamedPanic</span>.
+            El remake <span className="text-gamma-300">HD-2D</span> de Pokémon
+            Esmeralda, reconstruido en{" "}
+            <span className="text-gamma-300">Unreal Engine 5</span> tile a
+            tile: de Pueblo Alfalfa a Ciudad Malvalona, con ciclo día/noche,
+            bayas en reloj real y tu Pokémon as siguiéndote.{" "}
+            <span className="text-ember-400">100% gratis</span>, por
+            UndreamedPanic.
           </p>
 
           <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 font-term text-xl text-fog">
             <span>
-              <span className="text-ember-400">★ 4.7/5</span> · 341+ valoraciones
+              <span className="text-ember-400">★ 4.97/5</span> · 116
+              valoraciones EA
             </span>
             <span>
-              <span className="text-gamma-400">100% GRATIS</span> · PC
+              <span className="text-gamma-400">3 GIMNASIOS</span> · 3-6 h
             </span>
             <span>
               EA desde el <span className="text-aqua-400">15 · AGO · 2026</span>
@@ -122,13 +121,16 @@ export default function Hero({ live }: { live: boolean }) {
           </p>
         </div>
 
-        {/* columna derecha: widget de combate en vivo */}
+        {/* columna derecha: widget de combate con screenshot REAL */}
         <div className="relative mx-auto w-full max-w-md">
-          <div className="absolute -inset-3 -z-10 rotate-2 border-2 border-pine-700/70" aria-hidden />
+          <div
+            className="absolute -inset-3 -z-10 rotate-2 border-2 border-pine-700/70"
+            aria-hidden
+          />
           <div className="pixel-corners border-2 border-pine-600 bg-pine-900/95 p-3 shadow-[10px_10px_0_rgba(5,15,10,0.85)]">
             <div className="flex items-center justify-between border-b-2 border-pine-700 px-2 pb-2">
               <span className="font-display text-[8px] text-fog">
-                COMBATE · CUEVA VOLTIO
+                COMBATE · RUTA 101
               </span>
               <span className="flex gap-1.5" aria-hidden>
                 <i className="h-2 w-2 bg-coral-400" />
@@ -139,15 +141,18 @@ export default function Hero({ live }: { live: boolean }) {
 
             <div className="relative mt-2 overflow-hidden">
               <img
-                src={IMG.battle}
-                alt="Combate HD-2D: un entrenador frente a una criatura eléctrica gamma"
-                className="img-pixel aspect-[16/9] w-full object-cover"
+                src={IMG.eaShot1}
+                alt="Captura real de combate del Early Access de Gamma Emerald"
+                className="img-pixel aspect-[16/9] w-full bg-pine-950 object-cover"
+                loading="lazy"
               />
               {/* placa del rival */}
               <div className="pixel-corners-sm absolute top-2 left-2 w-44 border-2 border-pine-600 bg-pine-950/90 p-2">
                 <div className="flex items-baseline justify-between">
-                  <span className="font-display text-[8px] text-ink">RAIKITSU</span>
-                  <span className="font-term text-base text-ember-400">Nv36</span>
+                  <span className="font-display text-[8px] text-ink">
+                    POOCHYENA
+                  </span>
+                  <span className="font-term text-base text-ember-400">Nv2</span>
                 </div>
                 <div className="bar-track mt-1.5 h-2.5">
                   <div className="hp-live h-full" style={{ width: "92%" }} />
@@ -162,12 +167,17 @@ export default function Hero({ live }: { live: boolean }) {
             <div className="mt-2 grid grid-cols-[1fr_auto] gap-2">
               <div className="pixel-corners-sm border-2 border-pine-700 bg-pine-950 p-2.5">
                 <p className="font-term text-xl leading-tight text-ink">
-                  ¿Qué hará <span className="text-gamma-400">SCEPTILE</span>?
+                  ¿Qué hará <span className="text-gamma-400">TREECKO</span>?
                 </p>
                 <div className="bar-track mt-2 h-2">
-                  <div className="xp-live h-full bg-aqua-400" style={{ width: "8%" }} />
+                  <div
+                    className="xp-live h-full bg-aqua-400"
+                    style={{ width: "8%" }}
+                  />
                 </div>
-                <p className="mt-1 font-term text-sm text-dim">EXP · Nv58 → Nv59</p>
+                <p className="mt-1 font-term text-sm text-dim">
+                  EXP · AS TE SIGUE FUERA DE LA BALL
+                </p>
               </div>
               <div className="grid grid-cols-2 gap-1.5">
                 {["LUCHAR", "MOCHILA", "POKÉMON", "HUIR"].map((b, i) => (
@@ -187,7 +197,8 @@ export default function Hero({ live }: { live: boolean }) {
           </div>
 
           <div className="pixel-corners-sm floaty absolute -top-4 -right-3 border-2 border-ember-400 bg-pine-950 px-3 py-1.5 font-term text-lg text-ember-400 shadow-[4px_4px_0_rgba(255,176,32,0.25)]">
-            <IconBolt className="mr-1 inline h-3.5 w-3.5" /> ENERGÍA GAMMA +42%
+            <IconBolt className="mr-1 inline h-3.5 w-3.5" /> LUZ EN TIEMPO
+            REAL
           </div>
         </div>
       </div>
@@ -195,7 +206,7 @@ export default function Hero({ live }: { live: boolean }) {
   );
 }
 
-/* cinta transportadora de ubicaciones */
+/* cinta transportadora de ubicaciones reales del juego */
 export function Ticker() {
   const items = [...TICKER, ...TICKER];
   return (

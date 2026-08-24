@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Reveal, usePrefersReducedMotion } from "../lib/motion";
-import { IMG, ROUTES } from "../lib/data";
+import { ROUTES } from "../lib/data";
 import { IconPin } from "./Icons";
 import SectionHead from "./SectionHead";
 
@@ -13,7 +13,7 @@ export default function Region() {
     if (reduced || paused) return;
     const id = window.setInterval(
       () => setActive((a) => (a + 1) % ROUTES.length),
-      3200
+      3600
     );
     return () => window.clearInterval(id);
   }, [reduced, paused]);
@@ -29,78 +29,77 @@ export default function Region() {
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHead
-          eyebrow="MAPA DESBLOQUEADO · VUELO 11"
-          title="LA REGIÓN GAMMA"
-          desc="Seis zonas confirmadas en el Early Access, conectadas por rutas de hierba alta, túneles imantados y corrientes marinas. Pasa el cursor por la lista para localizarlas en el mapa."
+          eyebrow="VUELO REGISTRADO · DE ALFALFA A MALVALONA"
+          title="LA RUTA DEL EARLY ACCESS"
+          desc="Todo el tramo jugable de la build 1.13.1, reconstruido tile a tile: ocho paradas obligatorias, tres gimnasios y un corte de camino esperando la próxima actualización."
         />
 
         <div className="mt-14 grid gap-10 lg:grid-cols-[0.95fr_1.05fr]">
-          {/* mapa fijo */}
+          {/* visor fijo con imagen real */}
           <Reveal dir="left" className="lg:sticky lg:top-28 lg:self-start">
             <div className="pixel-corners border-2 border-pine-600 bg-pine-900 p-3">
               <div className="flex items-center justify-between px-1 pb-2.5">
                 <span className="font-display text-[8px] text-fog">
-                  MAPA DE LA REGIÓN
+                  VISOR DE ZONA
                 </span>
                 <span className="font-term text-base tracking-widest text-dim">
-                  LAT 11.07 · LON 104.23
+                  CAPTURA REAL DEL JUEGO
                 </span>
               </div>
-              <div className="pixel-corners-sm relative overflow-hidden border-2 border-pine-700">
+              <div className="pixel-corners-sm relative aspect-[4/3] overflow-hidden border-2 border-pine-700 bg-pine-950">
                 <img
-                  src={IMG.map}
-                  alt="Mapa pixel art de la región Gamma con sus islas y rutas"
-                  className="img-pixel aspect-square w-full object-cover"
+                  key={route.name}
+                  src={route.img}
+                  alt={`Captura real de ${route.name} en Gamma Emerald`}
+                  className="kenburns absolute inset-0 h-full w-full object-cover"
+                  loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-pine-950/55 via-transparent to-pine-950/25" />
-
-                {ROUTES.map((r, i) => (
-                  <button
-                    key={r.name}
-                    onClick={() => setActive(i)}
-                    className="absolute z-10 -translate-x-1/2 -translate-y-1/2 cursor-pointer focus:outline-none"
-                    style={{ left: `${r.x}%`, top: `${r.y}%` }}
-                    aria-label={`Ver ${r.name}`}
+                <div className="absolute inset-0 bg-gradient-to-t from-pine-950/85 via-transparent to-pine-950/20" />
+                <div className="absolute right-0 bottom-0 left-0 p-5">
+                  <p
+                    className="pixel-corners-sm inline-block border px-2.5 py-1 font-term text-base tracking-widest transition-colors duration-500"
+                    style={{ color: route.color, borderColor: route.color, background: "rgba(5,15,10,0.9)" }}
                   >
-                    <span
-                      className={`block h-3.5 w-3.5 rotate-45 border-2 transition-all duration-300 ${
-                        i === active ? "pulse-dot scale-125" : "scale-90 opacity-70"
-                      }`}
+                    {route.type.toUpperCase()}
+                  </p>
+                  <h3 className="mt-2 font-display text-sm text-ink sm:text-base">
+                    {route.name}
+                  </h3>
+                  <p className="mt-2 max-w-md font-body text-sm leading-relaxed text-fog">
+                    {route.desc}
+                  </p>
+                </div>
+                {/* esquinas de visor */}
+                <span className="absolute top-2 left-2 h-5 w-5 border-t-2 border-l-2 border-gamma-400/70" aria-hidden />
+                <span className="absolute top-2 right-2 h-5 w-5 border-t-2 border-r-2 border-gamma-400/70" aria-hidden />
+                <span className="absolute bottom-2 left-2 h-5 w-5 border-b-2 border-l-2 border-gamma-400/70" aria-hidden />
+                <span className="absolute right-2 bottom-2 h-5 w-5 border-r-2 border-b-2 border-gamma-400/70" aria-hidden />
+              </div>
+              <div className="flex items-center justify-between px-1 pt-2.5">
+                <span className="flex items-center gap-2 font-term text-lg tracking-widest text-dim">
+                  <span
+                    className="inline-flex"
+                    style={{ color: route.color }}
+                  >
+                    <IconPin className="h-4 w-4" />
+                  </span>
+                  ZONA {String(active + 1).padStart(2, "0")} /{" "}
+                  {String(ROUTES.length).padStart(2, "0")}
+                </span>
+                <div className="flex gap-1.5">
+                  {ROUTES.map((r, i) => (
+                    <button
+                      key={r.name}
+                      onClick={() => setActive(i)}
+                      aria-label={`Ir a ${r.name}`}
+                      className="h-2 w-4 transition-all duration-300"
                       style={{
-                        background: i === active ? r.color : "#0d2718",
-                        borderColor: r.color,
-                        boxShadow:
-                          i === active ? `0 0 18px ${r.color}` : "none",
+                        background:
+                          i === active ? route.color : "#143624",
                       }}
                     />
-                    <span
-                      className={`absolute top-4 left-1/2 -translate-x-1/2 border px-2 py-0.5 font-term text-sm tracking-widest whitespace-nowrap transition-all duration-300 ${
-                        i === active
-                          ? "translate-y-0 opacity-100"
-                          : "pointer-events-none translate-y-1 opacity-0"
-                      }`}
-                      style={{
-                        color: r.color,
-                        borderColor: r.color,
-                        background: "rgba(5,15,10,0.92)",
-                      }}
-                    >
-                      {r.name}
-                    </span>
-                  </button>
-                ))}
-              </div>
-
-              <div className="flex items-center justify-between px-1 pt-2.5">
-                <span
-                  className="flex items-center gap-2 font-term text-lg tracking-widest transition-colors duration-300"
-                  style={{ color: route.color }}
-                >
-                  <IconPin className="h-4 w-4" /> {route.type.toUpperCase()}
-                </span>
-                <span className="font-term text-lg text-dim">
-                  ZONA {String(active + 1).padStart(2, "0")} / 06
-                </span>
+                  ))}
+                </div>
               </div>
             </div>
           </Reveal>
@@ -108,67 +107,59 @@ export default function Region() {
           {/* lista de zonas */}
           <div className="flex flex-col gap-3">
             {ROUTES.map((r, i) => (
-              <Reveal key={r.name} delay={i * 90} dir="right">
+              <Reveal key={r.name} delay={(i % 4) * 90} dir="right">
                 <button
                   onClick={() => setActive(i)}
                   onMouseEnter={() => setActive(i)}
-                  className={`pixel-corners w-full border-2 p-5 text-left transition-all duration-300 ${
+                  className={`pixel-corners flex w-full items-center gap-4 border-2 px-5 py-4 text-left transition-all duration-300 ${
                     i === active
                       ? "translate-x-1 border-gamma-500 bg-pine-850 shadow-[6px_6px_0_rgba(47,224,111,0.22)]"
                       : "border-pine-700 bg-pine-900 hover:border-pine-500"
                   }`}
                 >
-                  <div className="flex items-center gap-4">
+                  <span
+                    className="font-term text-3xl transition-colors duration-300"
+                    style={{ color: i === active ? r.color : "#5f8a70" }}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="min-w-0 flex-1">
                     <span
-                      className="font-term text-3xl transition-colors duration-300"
-                      style={{ color: i === active ? r.color : "#5f8a70" }}
-                    >
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <div className="min-w-0">
-                      <h3
-                        className={`font-display text-[10px] tracking-wide sm:text-[11px] ${
-                          i === active ? "text-ink" : "text-fog"
-                        }`}
-                      >
-                        {r.name}
-                      </h3>
-                      <p className="mt-0.5 font-term text-base tracking-widest uppercase"
-                        style={{ color: r.color }}
-                      >
-                        {r.type}
-                      </p>
-                    </div>
-                    <span
-                      className={`ml-auto font-term text-2xl transition-all duration-300 ${
-                        i === active ? "translate-x-0 opacity-100" : "-translate-x-2 opacity-0"
+                      className={`block font-display text-[10px] tracking-wide sm:text-[11px] ${
+                        i === active ? "text-ink" : "text-fog"
                       }`}
+                    >
+                      {r.name}
+                    </span>
+                    <span
+                      className="mt-0.5 block font-term text-base tracking-widest uppercase"
                       style={{ color: r.color }}
                     >
-                      ▸▸
+                      {r.type}
                     </span>
-                  </div>
-                  <div
-                    className={`grid transition-all duration-400 ${
-                      i === active ? "mt-3 grid-rows-[1fr]" : "grid-rows-[0fr]"
+                  </span>
+                  <span
+                    className={`font-term text-2xl transition-all duration-300 ${
+                      i === active
+                        ? "translate-x-0 opacity-100"
+                        : "-translate-x-2 opacity-0"
                     }`}
+                    style={{ color: r.color }}
                   >
-                    <div className="min-h-0 overflow-hidden">
-                      <p className="font-body text-sm leading-relaxed text-fog">
-                        {r.desc}
-                      </p>
-                    </div>
-                  </div>
+                    ▸▸
+                  </span>
                 </button>
               </Reveal>
             ))}
 
-            <Reveal delay={540} dir="none">
-              <p className="mt-2 flex flex-wrap gap-x-6 gap-y-1 px-1 font-term text-lg text-dim">
-                <span>◆ 6 ZONAS CONFIRMADAS</span>
-                <span>◆ RUTAS INTERCONECTADAS</span>
-                <span>◆ MÁS EN v1.0</span>
-              </p>
+            <Reveal delay={300} dir="none">
+              <div className="pixel-corners mt-2 border-2 border-dashed border-ember-400/50 bg-pine-950 px-5 py-4">
+                <p className="font-term text-lg leading-snug text-ember-300">
+                  ⚠ BLOQUEO DE CAMINO — «Las rutas más allá de Ciudad
+                  Malvalona aún no están listas, entrenadores veloces. ¡Toca
+                  esperar al siguiente parche!» — UndreamedPanic
+                </p>
+              </div>
             </Reveal>
           </div>
         </div>

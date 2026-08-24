@@ -7,7 +7,8 @@ const COLS = [
     links: [
       { label: "Early Access · itch.io", href: LINKS.itch },
       { label: "Página en GameJolt", href: LINKS.gamejolt },
-      { label: "Demo v0.5", href: LINKS.itchDemo },
+      { label: "Demo clásica (2025)", href: LINKS.itchDemo },
+      { label: "Discord oficial", href: LINKS.discord },
     ],
   },
   {

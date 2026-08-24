@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar";
 import Hero, { Ticker } from "./components/Hero";
 import Trailer from "./components/Trailer";
 import Features from "./components/Features";
-import Pokedex from "./components/Pokedex";
+import Starters from "./components/Starters";
 import Region from "./components/Region";
 import Download from "./components/Download";
 import Faq from "./components/Faq";
@@ -39,7 +39,7 @@ export default function App() {
           <Ticker />
           <Trailer />
           <Features />
-          <Pokedex />
+          <Starters />
           <Region />
           <Download />
           <Faq />

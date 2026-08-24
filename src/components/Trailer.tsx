@@ -10,15 +10,15 @@ export default function Trailer() {
         <SectionHead
           eyebrow="SEÑAL RECIBIDA · POKÉNET"
           title="TRANSMISIONES"
-          desc="Los dos vídeos oficiales del proyecto: el tráiler que presentó el remake HD-2D y el avance de gameplay. Reproducción directa desde el canal de YouTube."
+          desc="Los vídeos oficiales del proyecto: el tráiler que presentó el remake HD-2D, el avance de gameplay y el devlog original del canal de UndreamedPanic. Reproducción directa desde YouTube."
         />
 
-        <div className="mt-14 grid gap-10 lg:grid-cols-2">
+        <div className="mt-14 grid gap-8 lg:grid-cols-3">
           {TRAILERS.map((t, i) => (
             <Reveal
               key={t.id}
               delay={i * 140}
-              dir={i === 0 ? "left" : "right"}
+              dir={i % 2 === 0 ? "left" : "right"}
             >
               <article className="lift pixel-corners group border-2 border-pine-600 bg-pine-900 p-3">
                 {/* bisel tipo consola */}
@@ -63,7 +63,13 @@ export default function Trailer() {
               </article>
 
               <a
-                href={i === 0 ? LINKS.trailer1 : LINKS.trailer2}
+                href={
+                  i === 0
+                    ? LINKS.trailer1
+                    : i === 1
+                      ? LINKS.trailer2
+                      : LINKS.trailer3
+                }
                 target="_blank"
                 rel="noreferrer"
                 className="link-underline mt-3 inline-flex items-center gap-2 px-1 font-term text-xl text-gamma-400 hover:text-gamma-300"

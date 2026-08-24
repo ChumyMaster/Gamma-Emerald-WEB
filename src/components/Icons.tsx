@@ -157,3 +157,30 @@ export const IconClock = ({ className = "w-4 h-4" }: P) => (
     <rect x="11" y="11" width="5" height="2" />
   </svg>
 );
+
+export const IconWindows = ({ className = "w-4 h-4" }: P) => (
+  <svg viewBox="0 0 24 24" className={className} aria-hidden fill="currentColor">
+    <rect x="3" y="5" width="8" height="6" />
+    <rect x="13" y="3" width="8" height="8" />
+    <rect x="3" y="13" width="8" height="6" />
+    <rect x="13" y="13" width="8" height="8" />
+  </svg>
+);
+
+export const IconGamejolt = ({ className = "w-4 h-4" }: P) => (
+  <svg viewBox="0 0 24 24" className={className} aria-hidden fill="currentColor">
+    <path d="M12 2 2 7v10l10 5 10-5V7l-10-5Zm0 2.3L19.6 8 12 11.8 4.4 8 12 4.3ZM4 9.8l7 3.5v6.4l-7-3.5V9.8Zm16 0v6.4l-7 3.5v-6.4l7-3.5Z" />
+  </svg>
+);
+
+export const IconDisk = ({ className = "w-5 h-5" }: P) => (
+  <svg viewBox="0 0 24 24" className={className} aria-hidden fill="currentColor">
+    <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm0 3a7 7 0 0 1 6.9 6H13.5A4 4 0 0 0 12 8V5Zm-7 7a7 7 0 0 1 5-6.7V8a4 4 0 0 0-1.5.9L5.6 6.1A7 7 0 0 0 5 12Zm2 0a5 5 0 1 1 5 5 5 5 0 0 1-5-5Zm12 0a7 7 0 0 1-12 4.9l2.5-2.5A4 4 0 0 0 12 16v3a7 7 0 0 0 7-7Z" />
+  </svg>
+);
+
+export const IconStar = ({ className = "w-4 h-4" }: P) => (
+  <svg viewBox="0 0 24 24" className={className} aria-hidden fill="currentColor">
+    <path d="M12 2l2.4 6.6L21 9.3l-5 4.4 1.6 6.8L12 16.9l-5.6 3.6L8 13.7 3 9.3l6.6-.7L12 2Z" />
+  </svg>
+);
