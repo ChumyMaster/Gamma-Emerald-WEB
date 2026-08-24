@@ -15,14 +15,15 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen bg-pine-950 text-ink antialiased">
-      {/* rejilla ambiental de fondo */}
+      {/* fondo ambiental por capas */}
+      <div className="bg-wash pointer-events-none fixed inset-0 z-0" aria-hidden />
       <div
-        className="pointer-events-none fixed inset-0 z-0"
+        className="pointer-events-none fixed inset-0 z-0 opacity-60"
         aria-hidden
         style={{
           backgroundImage:
-            "linear-gradient(rgba(93,255,143,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(93,255,143,0.04) 1px, transparent 1px)",
-          backgroundSize: "44px 44px",
+            "linear-gradient(rgba(52,211,153,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(52,211,153,0.045) 1px, transparent 1px)",
+          backgroundSize: "46px 46px",
         }}
       />
 
@@ -47,10 +48,9 @@ export default function App() {
         <Footer />
       </div>
 
-      {/* capas CRT */}
-      <div className="scanlines pointer-events-none fixed inset-0 z-[70]" aria-hidden />
+      {/* capas ambientales sutiles */}
       <div className="vignette pointer-events-none fixed inset-0 z-[71]" aria-hidden />
-      <div className="noise-layer pointer-events-none fixed inset-0 z-[72] opacity-[0.05]" aria-hidden />
+      <div className="noise-layer pointer-events-none fixed inset-0 z-[72] opacity-[0.04]" aria-hidden />
     </div>
   );
 }
