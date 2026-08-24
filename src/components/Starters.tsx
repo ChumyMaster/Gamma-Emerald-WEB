@@ -5,6 +5,7 @@ import { STARTERS, SPRITES } from "../lib/data";
 import { IconBall } from "./Icons";
 import SectionHead from "./SectionHead";
 import Tilt from "./Tilt";
+import MouseGlow from "./MouseGlow";
 
 const SPARKS = [
   { top: "12%", left: "18%", delay: "0s" },
@@ -51,7 +52,10 @@ export default function Starters() {
         }}
       />
 
-      <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+      <MouseGlow
+        className="relative mx-auto max-w-6xl px-4 sm:px-6"
+        color="rgba(251,191,36,0.08)"
+      >
         <div className="flex flex-wrap items-end justify-between gap-6">
           <SectionHead
             eyebrow="LABORATORIO DEL PROFESOR ABEDUL"
@@ -271,7 +275,7 @@ export default function Starters() {
             </div>
           </div>
         )}
-      </div>
+      </MouseGlow>
     </section>
   );
 }

@@ -15,6 +15,7 @@ import {
   IconStar,
 } from "./Icons";
 import SectionHead from "./SectionHead";
+import Tilt from "./Tilt";
 
 export default function Download() {
   return (
@@ -37,6 +38,7 @@ export default function Download() {
         <div className="mt-14 grid gap-12 lg:grid-cols-[0.85fr_1.15fr]">
           {/* cartucho + botones */}
           <Reveal dir="left" className="flex flex-col items-center">
+            <Tilt max={12} className="relative w-64 sm:w-72">
             <div className="relative w-64 sm:w-72">
               <div className="pixel-corners border-2 border-pine-600 bg-pine-800 p-4 shadow-[12px_12px_0_rgba(5,15,10,0.9)]">
                 <div className="mb-3 flex justify-between px-1">
@@ -69,6 +71,7 @@ export default function Download() {
                 <IconStar className="mr-1 inline h-4 w-4" /> GRATIS
               </div>
             </div>
+            </Tilt>
 
             {/* botones reales */}
             <div className="mt-8 flex w-full max-w-sm flex-col gap-3">

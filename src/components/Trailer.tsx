@@ -2,6 +2,7 @@ import { Reveal } from "../lib/motion";
 import { TRAILERS, LINKS } from "../lib/data";
 import { IconExt } from "./Icons";
 import SectionHead from "./SectionHead";
+import Tilt from "./Tilt";
 
 export default function Trailer() {
   return (
@@ -20,7 +21,8 @@ export default function Trailer() {
               delay={i * 140}
               dir={i % 2 === 0 ? "left" : "right"}
             >
-              <article className="lift pixel-corners group border-2 border-pine-600 bg-pine-900 p-3">
+              <Tilt max={6} className="h-full">
+              <article className="pixel-corners shine group h-full border-2 border-pine-600 bg-pine-900 p-3">
                 {/* bisel tipo consola */}
                 <div className="flex items-center justify-between px-1 pb-2.5">
                   <span className="font-term text-lg tracking-[0.3em] text-gamma-500">
@@ -61,6 +63,7 @@ export default function Trailer() {
                   </span>
                 </div>
               </article>
+              </Tilt>
 
               <a
                 href={

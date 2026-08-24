@@ -447,6 +447,116 @@ details.faq-item summary::-webkit-details-marker {
   animation: pop-in 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 
+/* ---------- efectos de cursor ---------- */
+.cursor-dot {
+  position: fixed;
+  top: -5px;
+  left: -5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--color-gamma-400);
+  box-shadow: 0 0 14px rgba(52, 211, 153, 0.9);
+  pointer-events: none;
+  transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease;
+}
+.cursor-dot.cursor-hot {
+  width: 16px;
+  height: 16px;
+  top: -8px;
+  left: -8px;
+  background: var(--color-ember-400);
+  box-shadow: 0 0 18px rgba(251, 191, 36, 0.9);
+}
+.cursor-dot.cursor-down {
+  width: 7px;
+  height: 7px;
+}
+.cursor-ring {
+  position: fixed;
+  top: -19px;
+  left: -19px;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  border: 2px solid rgba(110, 231, 183, 0.55);
+  pointer-events: none;
+  transition: width 0.25s ease, height 0.25s ease, top 0.25s ease,
+    left 0.25s ease, border-color 0.25s ease, opacity 0.25s ease;
+}
+.cursor-ring.cursor-hot {
+  width: 56px;
+  height: 56px;
+  top: -28px;
+  left: -28px;
+  border-color: rgba(251, 191, 36, 0.75);
+}
+.cursor-spark {
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-radius: 2px;
+  background: var(--color-gamma-500);
+  box-shadow: 0 0 8px rgba(52, 211, 153, 0.7);
+  pointer-events: none;
+}
+.cursor-ripple {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  margin: -6px 0 0 -6px;
+  border-radius: 999px;
+  border: 3px solid var(--color-gamma-400);
+  pointer-events: none;
+  animation: ripple-out 0.6s ease-out forwards;
+}
+@keyframes ripple-out {
+  to {
+    transform: scale(6);
+    opacity: 0;
+  }
+}
+
+/* resplandor que sigue al cursor en secciones */
+.mouse-glow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    34rem 34rem at var(--gx, 50%) var(--gy, 30%),
+    var(--glow, rgba(52, 211, 153, 0.1)),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 0;
+}
+.mouse-glow:hover::before {
+  opacity: 1;
+}
+.mouse-glow > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- radio / música ---------- */
+.eq-bar {
+  height: 30%;
+  animation: eq 1s ease-in-out infinite;
+}
+@keyframes eq {
+  0%, 100% { height: 26%; }
+  50% { height: 96%; }
+}
+.music-ping {
+  animation: music-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+@keyframes music-ping {
+  0% { transform: scale(1); opacity: 0.6; }
+  80%, 100% { transform: scale(1.6); opacity: 0; }
+}
+
 /* ---------- reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   html {

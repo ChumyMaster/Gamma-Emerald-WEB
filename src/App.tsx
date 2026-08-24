@@ -6,6 +6,8 @@ import Hero, { Ticker } from "./components/Hero";
 import Particles from "./components/Particles";
 import StatsBar from "./components/Stats";
 import Cinematic from "./components/Cinematic";
+import CursorFx from "./components/CursorFx";
+import MusicPlayer from "./components/MusicPlayer";
 import Trailer from "./components/Trailer";
 import Features from "./components/Features";
 import Starters from "./components/Starters";
@@ -64,6 +66,9 @@ export default function App() {
       {/* capas ambientales sutiles */}
       <div className="vignette pointer-events-none fixed inset-0 z-[71]" aria-hidden />
       <div className="noise-layer pointer-events-none fixed inset-0 z-[72] opacity-[0.04]" aria-hidden />
+
+      <CursorFx />
+      <MusicPlayer />
     </div>
   );
 }

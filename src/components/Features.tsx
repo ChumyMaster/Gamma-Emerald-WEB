@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Reveal } from "../lib/motion";
 import { FEATURES, IMG, TOOLS } from "../lib/data";
 import SectionHead from "./SectionHead";
+import MouseGlow from "./MouseGlow";
+import Tilt from "./Tilt";
 
 const PHASES = [
   { name: "MAÑANA", color: "#ffc857", icon: "☀" },
@@ -66,7 +68,7 @@ export default function Features() {
       id="novedades"
       className="relative scroll-mt-24 border-t-2 border-pine-800 bg-pine-900/40 py-20 sm:py-28"
     >
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <MouseGlow className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHead
           eyebrow="FICHA TÉCNICA · BUILD 1.13.1"
           title="TODO LO NUEVO DEL REMAKE"
@@ -220,7 +222,7 @@ export default function Features() {
             </figcaption>
           </figure>
         </Reveal>
-      </div>
+      </MouseGlow>
     </section>
   );
 }
